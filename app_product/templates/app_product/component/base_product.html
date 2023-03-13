@@ -1,0 +1,84 @@
+{% if product_quantity == 0 %}
+<div class="container mt-3 text-muted text-center">
+    <h3>Don't have product.</h3>
+</div>
+{% else %}
+<div class="container mt-3 row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
+
+    {% for product in products %}
+    <!-- Product detail -->
+    <div class="col">
+        <div class="card shadow-sm mb-1">
+            {% if product.photo %}
+            <img class="card-img-top" src="{{ product.photo.url }}" alt="Card image" style="width:100%">
+            {% endif %}
+            <!-- Date time for update product -->
+            <small class="text-muted text-end p-1">{{ product.updated | date:'j N Y' }}</small>
+            <div class="card-body">
+
+                <!-- tag premium on title -->
+                <a class="card-title fw-bold text-white btn btn-success position-relative"
+                    href="{% url 'app_product:product-page' slug=product.slug %}"> {{ product.title | upper}}
+                    {% if product.is_premium %}
+                    <span
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-black">
+                        Premium !
+                    </span>
+                    {% endif %}
+                </a>
+                <p class="card-text">
+                    <b> :: {{ product.type | upper }} :: </b><br>
+
+                    <!-- Check quantity of product -->
+                    {% if product.quantity is not None %}
+                    <b>Quantity : </b>{{ product.quantity }}<br>
+                    {% else %}
+                    <b class="text-danger">There are no order yet!</b><br>
+                    {% endif %}
+
+                    <!-- Update price of product -->
+                    {% if product.price is not None %}
+                    {% if product.special_price is not None %}
+                    <b>Price : </b><del style="color:rgb(255, 90, 90)">{{ product.price | floatformat:'g' }} Bath</del>
+                    {{ product.special_price | floatformat:'g' }} Bath
+                    {% else %}
+                    <b>Price : </b>{{ product.price | floatformat:'g' }} Bath
+                    {% endif %}
+                    {% endif %}
+                    <br>
+
+                    <!-- Check promotion end of product -->
+                    {% if product.promotion_end is not None %}
+                    <b>Promotion End : </b>{{ product.promotion_end | date:'j N Y' }}
+                    {% endif %}
+                    <br>
+                </p>
+
+                <!-- Check status of product -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        {% if product.quantity is not None %}
+                        {% if product.quantity == 0 %}
+                        <button type="button" class="btn btn-sm btn-danger fw-bold">Sold out</button>
+                        {% else %}
+                        <a type="button" class="btn btn-sm btn-primary fw-bold"
+                            href="{% url 'app_general:add_to_cart-page' slug=product.slug %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
+                            </svg>
+                            Add to Cart
+                        </a>
+                        {% endif %}
+                        {% else %}
+                        <button type="button" class="btn btn-sm btn-danger fw-bold">Empty</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

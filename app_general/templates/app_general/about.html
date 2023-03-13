@@ -1,0 +1,25 @@
+{% extends 'app_general/base.html' %}
+
+{% block title %}
+<title>About | {{user.username}}</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3" align="center">
+    <div class="card bg-black text-white" style="width:350px">
+        <div class="card-body" align="left">
+            <p>
+            <h4>{{ user.username }}</h4>
+            </p>
+            <p>
+                <b>Name : </b>{{ user.first_name }} {{ user.last_name }}<br>
+            </p>
+            <p>
+                <b>Email : </b>{{ user.email }}<br>
+            </p>
+            <a class="btn btn-dark nav-link fw-bold py-1 px-0 text-white"
+                href="{% url 'app_general:history_shop-page' %}">View Purchase History</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

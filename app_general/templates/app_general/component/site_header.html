@@ -1,0 +1,91 @@
+<header class="mb-auto sticky-top">
+    <div class="navbar navbar-dark shadow-sm p-md-2 mb-2 bg-black">
+        <div class="container text-white flex-md-row bg-black">
+            <div class="flex-md-col-3 bg-black">
+                <a href="{% url 'app_general:about_user-page' %}" class="navbar-brand d-flex align-items-center">
+                    <strong style="color:#d6ce93">{{ user.username }}</strong>
+                </a>
+            </div>
+            <!-- Menu bar -->
+            <div class="row bg-black">
+                <div class="dropdown col">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownProduct"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Product
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownProduct">
+                        <li><a class="dropdown-item" href="{% url 'app_product:products-page' %}">My Product</a></li>
+                        <li><a class="dropdown-item" href="{% url 'app_product:products_coffee-page' %}">Coffee</a></li>
+                        <li><a class="dropdown-item" href="{% url 'app_product:products_tea-page' %}">Tea</a></li>
+                        <li><a class="dropdown-item" href="{% url 'app_product:products_milk-page' %}">Milk</a></li>
+                        <li><a class="dropdown-item" href="{% url 'app_product:products_cake-page' %}">Cake</a></li>
+                    </ul>
+                </div>
+                <!-- Show quantities of product in cart -->
+                <div class="col">
+                    <a class="btn btn-dark position-relative" href="{% url 'app_general:show_item_in_cart-page' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z" />
+                        </svg>
+                        {% if request.session.total_qty %}
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ request.session.total_qty }}
+                        </span>
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-dark col" href="{% url 'app_general:contact-page' %}">
+                        Contact
+                    </a>
+                </div>
+            </div>
+            <!-- Button of toggler -->
+            <div class="flex-md-col-3 bg-black">
+                <a class="nav-link fw-bold py-1 px-0 text-primary" type="button" align="left">
+                    <div data-bs-toggle="offcanvas" data-bs-target="#demo">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Pop-up menu from button of toggler -->
+    <div class="offcanvas offcanvas-bottom h-auto bg-dark cover-container mx-auto" id="demo">
+        <div class="offcanvas-body">
+            <div class="text-white">
+                <h4 style="color:#d6ce93"><b>{{ user.username }}</b></h4>
+            </div>
+            <a class="nav-link fw-bold py-1 px-0 text-white" href="{% url 'app_general:home-page' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-house-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                    <path fill-rule="evenodd"
+                        d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                </svg>&nbsp Home
+            </a>
+            <a class="nav-link fw-bold py-1 px-0 text-white" href="{% url 'app_general:about_user-page' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg>&nbsp My Account
+            </a>
+            <a class="nav-link fw-bold py-1 px-0 text-white" href="{% url 'app_general:contact-page' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+                </svg>&nbsp Contact
+            </a>
+            <br>
+            <a class="btn btn-danger text-white text-white" type="button" href="{% url 'logout' %}"><b>Sign out</b></a>
+        </div>
+    </div>
+</header>

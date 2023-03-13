@@ -1,0 +1,34 @@
+{% extends 'app_general/base.html' %}
+
+{% block title %}
+<title>Sign Up</title>
+{% endblock title %}
+
+{% block header %}
+<div>
+    <div class="float-md-start py-1 px-0">
+        <h6 class="fw-bold">Your Name Café</h6>
+    </div>
+    <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link fw-bold py-1 px-0" href="{% url 'login' %}">Log in</a>
+        <a class="nav-link fw-bold py-1 px-0 active" href="{% url 'app_general:register_user-page' %}">Register</a>
+    </nav>
+</div>
+{% endblock header %}
+{% block content %}
+<div class="container text-white" align="center">
+    <h1>Register</h1>
+    {% if form.errors %}
+    <div class="alert alert-warning">
+        <strong>Warning!</strong> This alert box could indicate a warning that might need attention.
+    </div>
+    {% endif %}
+</div>
+<form class="text-white" action="{% url 'app_general:register_user-page' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-field">
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </div>
+</form>
+{% endblock %}

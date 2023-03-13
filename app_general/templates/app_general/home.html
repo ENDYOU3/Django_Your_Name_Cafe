@@ -1,0 +1,73 @@
+{% extends 'app_general/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% if user.is_authenticated %}
+<title>Home | {{user.username}}</title>
+{% else %}
+<title>Home</title>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+    </div>
+    <div class="carousel-inner rounded-3">
+        <div class="carousel-item active">
+            <img src="{% static 'image/black_ground_1.jpg' %}" alt="NAT Café" class="d-block w-100">
+            <div class="container">
+                <div class="carousel-caption shadow m-5 p-0 mb-3 bg-body rounded">
+                    <h1 style="color:#a3a890">Your Name Café</h1>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'image/black_ground_2.jpg' %}" alt="COFFEE" class="d-block w-100">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1 style="color:#d6ce93">COFFEE</h1>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'image/black_ground_3.jpg' %}" alt="TEA" class="d-block w-100">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1 style="color:#d6ce93">TEA</h1>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'image/black_ground_4.jpg' %}" alt="MILK" class="d-block w-100">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1 style="color:#d6ce93">MILK</h1>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'image/black_ground_5.jpg' %}" alt="CAKE" class="d-block w-100">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1 style="color:#d6ce93">CAKE</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+{% endblock %}

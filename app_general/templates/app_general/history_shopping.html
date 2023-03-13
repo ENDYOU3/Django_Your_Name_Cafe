@@ -1,0 +1,74 @@
+{% extends 'app_general/base.html' %}
+
+{% block title %}
+<title>Cart | Your Name Café {{user.username}}</title>
+{% endblock %}
+
+{% block content %}
+<div class="text-white" align="center">
+    <h1 style="color:#d6ce93">Order History</h1>
+</div>
+
+<form action="{% url 'app_general:show_item_in_cart-page' %}" method="POST">
+    {% csrf_token %}
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-header text-center">
+                {% for customer in all_customer %}
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <a class="btn btn-dark" href="{% url 'app_general:select_history-page' customer_id=customer.id %}">
+                        {{ customer.first_name }} {{ customer.last_name }}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% if not status %}
+            <div class="card-body">
+                <div class="text">
+                    <h3 class="text-center text-muted">
+                        Select your customer address!
+                    </h3>
+                </div>
+            </div>
+            {% else %}
+            {% if order_qty == 0 %}
+            <div class="card-body">
+                <div class="text">
+                    <h3 class="text-center text-muted">
+                        No Purchase History Showing
+                    </h3>
+                </div>
+            </div>
+            {% else %}
+            <div class="card-body">
+                <div class="text">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">ID</th>
+                                <th class="text-left" scope="col">Order Date</th>
+                                <th class="text-left" scope="col">Product</th>
+                                <th class="text-center" scope="col">Quantities</th>
+                                <th class="text-center" scope="col">Total Price</th>
+                            </tr>
+                        </thead>
+                        {% for order in order_list %}
+                        <tbody>
+                            <tr>
+                                <th class="text-center" scope="row">{{ order.0 }}</th>
+                                <td class="text-left">{{ order.1 }}</td>
+                                <td class="text-left">{{ order.2 }}</td>
+                                <td class="text-center">{{ order.3 }}</td>
+                                <td class="text-center">{{ order.4 }}</td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</form>
+{% endblock %}
