@@ -34,10 +34,9 @@
                     <th>Actions</th>
                 </tr>
             </thead>
+            {% for product in product_list %}
             <tbody>
-
                 <!-- Show all item in cart -->
-                {% for product in product_list %}
                 <tr class="text-nowrap" align="center">
                     <td>
                         <a class="btn btn-success" href="{% url 'app_product:product-page' product.slug %}">
@@ -57,7 +56,8 @@
                         </a>
                     </td>
                 </tr>
-                {% endfor %}
+            </tbody>
+            {% endfor %}
             <tbody class="fw-bold">
                 <tr class="text-nowrap" align="center">
                     <td>
@@ -72,7 +72,6 @@
                     </td>
                     <td><button class="btn btn-primary" type="submit">Check Out</button></td>
                 </tr>
-            </tbody>
             </tbody>
         </table>
     </div>

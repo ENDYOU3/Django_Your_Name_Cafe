@@ -10,8 +10,6 @@ class Product_Type(models.Model):
 
 
 class Product(models.Model):
-    # class Meta:
-    # 	verbose_name_plural = 'All Product'
     slug = models.SlugField(unique=True, max_length=100)
     title = models.CharField(max_length=225)
     type = models.ForeignKey(

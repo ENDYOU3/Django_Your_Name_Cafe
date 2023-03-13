@@ -20,7 +20,25 @@ def AboutUser(request):
 	return render(request, "app_general/about.html")
 
 
-# Quantities 1. quantity >> quantity of product in database | 2. qty >> quantities of product in cart
+@login_required
+def show_item_in_cart(request):
+	product_list = request.session.get("product_list") or []
+	total_qty = 0
+	total_price = 0
+	add_shipping_cost = False
+	# Total price and quantity of product
+	for item in product_list:
+		total_price += item.get("total_price")
+		total_qty += item.get("qty")
+	request.session["total_qty"] = total_qty
+	request.session["total_price"] = total_price
+	request.session["add_shipping_cost"] = add_shipping_cost
+	if request.method == "POST":
+		return HttpResponseRedirect(reverse("app_general:order-page", kwargs={}))
+	context = {"product_list": product_list} 
+	return render(request, "app_general/shopping_cart.html", context)
+
+
 @login_required
 def add_to_cart(request, slug):
 	product = get_object_or_404(Product, slug=slug)
@@ -59,85 +77,62 @@ def delete_item(request, slug):
 			del product_list[i]
 			break
 	request.session["product_list"] = product_list
-	return HttpResponseRedirect(reverse("app_general:show_item_in_cart-page", kwargs={}))
-
-
-@login_required
-def show_item_in_cart(request):
-	product_list = request.session.get("product_list") or []
-	total_qty = 0
-	total_price = 0
-	add_shipping_cost = False
-	# Total price and quantity of product
-	for item in product_list:
-		total_price += item.get("total_price")
-		total_qty += item.get("qty")
-	request.session["total_qty"] = total_qty
-	request.session["total_price"] = total_price
-	request.session["add_shipping_cost"] = add_shipping_cost
-	if request.method == "POST":
-		return HttpResponseRedirect(reverse("app_general:order-page", kwargs={}))
-	context = {"product_list": product_list} 
-	return render(request, "app_general/shopping_cart.html", context)
+	return HttpResponseRedirect(reverse("app_general:show_item_in_cart-page"))
 
 
 @login_required
 def show_order(request):
-	# Add shipping cost to total price
+	username = request.user.username
+	user = User.objects.get(username=username)
+	all_customer = Customer.objects.filter(user=user)
 	count_item = len(request.session["product_list"])
+	# Add shipping cost to total price
 	shipping_cost = 40
 	request.session["shipping_cost"] = shipping_cost
 	if not request.session["add_shipping_cost"]:
 		request.session["total_price"] += request.session["shipping_cost"]
 		request.session["add_shipping_cost"] = True
-
-	# All customer address
-	username = request.user.username
-	user = User.objects.get(username=username)
-	all_customer = Customer.objects.filter(user=user)
-
-	# Payment method
+	# Save data to database
 	if request.method == "POST":
-		shipping = []
-		form = OrderDetailForm(request.POST)
-		if form.is_valid():
-			shipping.append({
-				"note": form.cleaned_data["note"],
-				"payment_method": form.cleaned_data["payment_method"]
-			})
-
-		# Save payment method into database
-		new_shipping = Shipping()
-		customer_id = request.session["customer_id"]
-		new_shipping.customer = Customer.objects.get(id=customer_id)
-		new_shipping.payment_method = shipping[0].get("payment_method")
-		new_shipping.note = shipping[0].get("note")
-		new_shipping.save()
-
-		# Save order into database
-		product_list = request.session["product_list"]
-		for i in range(len(product_list)):
-			new_order = Order()
-			slug = product_list[i].get("slug")
-			product = get_object_or_404(Product, slug=slug)
-			new_order.product = product
-			new_order.quantity = product_list[i].get("qty")
-			new_order.total_price = product_list[i].get("total_price")
-			new_order.shipping = Shipping.objects.all().last()
-			new_order.save()
-			# update quantity of product in stock
-			product.quantity -= new_order.quantity
-			product.save()
-
-		# reset value in session
-		request.session["total_qty"] = []
-		request.session["product_list"] = []
-		request.session["total_price"] = []
-
-		return HttpResponseRedirect(reverse('app_general:thank_you-page'))
+		try:
+			request.session["customer"]
+			shipping = []
+			form = OrderDetailForm(request.POST)
+			if form.is_valid():
+				shipping.append({
+					"note": form.cleaned_data["note"],
+					"payment_method": form.cleaned_data["payment_method"]
+				})
+				# Add new order to database
+				product_list = request.session["product_list"]
+				for i in range(len(product_list)):
+					new_order = Order()
+					slug = product_list[i].get("slug")
+					product = get_object_or_404(Product, slug=slug)
+					new_order.product = product
+					new_order.quantity = product_list[i].get("qty")
+					new_order.total_price = product_list[i].get("total_price")
+					new_order.shipping = Shipping.objects.all().last()
+					new_order.save()
+					# Update quantity of product in stock
+					product.quantity -= new_order.quantity
+					product.save()
+				# Add new shipping to database
+				new_shipping = Shipping()
+				customer_id = request.session["customer_id"]
+				new_shipping.customer = Customer.objects.get(id=customer_id)
+				new_shipping.payment_method = shipping[0].get("payment_method")
+				new_shipping.note = shipping[0].get("note")
+				new_shipping.save()
+			# Reset value in session
+			request.session["total_qty"] = []
+			request.session["product_list"] = []
+			request.session["total_price"] = []
+			return HttpResponseRedirect(reverse('app_general:thank_you-page'))
+		except:
+			return HttpResponseRedirect(reverse('app_general:order-page'))
 	else:
 		form = OrderDetailForm()
-
 	context = {
 		"count_item": count_item,
 		"all_customer": all_customer,
@@ -148,7 +143,6 @@ def show_order(request):
 
 @login_required
 def add_customer(request):
-	# Create form add customer
 	if request.method == "POST":
 		form = CustomerForm(request.POST)
 		if form.is_valid():
@@ -229,21 +223,9 @@ def select_history(request, customer_id):
 	return HttpResponseRedirect(reverse("app_general:history_shop-page", kwargs={}))
 
 
-def RegisterUser(request):
-	if request.method == "POST":
-		form = RegisterUserForm(request.POST)
-		if form.is_valid():
-			form.save()
-			data_username = form.cleaned_data["username"]
-			data_password = form.cleaned_data["password1"]
-			user = authenticate(username=data_username, password=data_password)
-			login(request, user)
-			messages.success(request, ("Registration Successful"))
-			return redirect("app_general:home-page")
-	else:
-		form = RegisterUserForm()
-	context = {"form": form}
-	return render(request, "app_general/register.html", context)
+@login_required
+def Thankyou(request):
+	return render(request, "app_general/thank_for_shopping.html")
 
 
 @login_required
@@ -265,6 +247,18 @@ def ContactMessage(request):
 	return render(request, "app_general/contact.html", context)
 
 
-@login_required
-def Thankyou(request):
-	return render(request, "app_general/thank_for_shopping.html")
+def RegisterUser(request):
+	if request.method == "POST":
+		form = RegisterUserForm(request.POST)
+		if form.is_valid():
+			form.save()
+			data_username = form.cleaned_data["username"]
+			data_password = form.cleaned_data["password1"]
+			user = authenticate(username=data_username, password=data_password)
+			login(request, user)
+			messages.success(request, ("Registration Successful"))
+			return redirect("app_general:home-page")
+	else:
+		form = RegisterUserForm()
+	context = {"form": form}
+	return render(request, "app_general/register.html", context)

@@ -24,16 +24,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(("app_general.urls", "app_general"), namespace="app_general")),
     path("products/", include(("app_product.urls", "app_product"), namespace="app_product")),
-    path(
-        "login/",
-        auth_views.LoginView.as_view(template_name="app_general/login.html"),
-        name="login",
-    ),
-    path(
-        "logout/",
-        auth_views.LogoutView.as_view(template_name="app_general/logout.html"),
-        name="logout",
-    ),
+    path("login/", auth_views.LoginView.as_view(template_name="app_general/login.html"), name="login"),
+    path("logout/", auth_views.LogoutView.as_view(template_name="app_general/logout.html"), name="logout")
 ]
 
 # Path upload photo

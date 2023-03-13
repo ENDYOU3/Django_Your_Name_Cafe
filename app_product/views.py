@@ -24,7 +24,6 @@ def One_Product(request, slug):
 
 # Note type >> 1=coffee, 2=tea, 3=milk, 4=cake
 
-
 def All_Coffee(request):
     all_products = Product.objects.filter(type=1).order_by("-is_premium")
     product_quantity = len(all_products)
