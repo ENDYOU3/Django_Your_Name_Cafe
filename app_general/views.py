@@ -35,7 +35,7 @@ def show_item_in_cart(request):
 	request.session["add_shipping_cost"] = add_shipping_cost
 	if request.method == "POST":
 		return HttpResponseRedirect(reverse("app_general:order-page", kwargs={}))
-	context = {"product_list": product_list} 
+	context = {"product_list": product_list}
 	return render(request, "app_general/shopping_cart.html", context)
 
 
@@ -170,6 +170,7 @@ def add_customer(request):
 		new_customer.address = customer[0].get("address")
 		new_customer.phone = customer[0].get("phone")
 		new_customer.save()
+		messages.success(request, "Add new address complete!")
 		request.session["customer"] = customer
 		request.session["customer_id"] = Customer.objects.all().last().id
 		return HttpResponseRedirect(reverse("app_general:order-page"))
@@ -244,6 +245,7 @@ def ContactMessage(request):
 			new_contact.email = form.cleaned_data["email"]
 			new_contact.description = form.cleaned_data["description"]
 			new_contact.save()
+			messages.success(request, f"{username}, Thanks for your feedback.")
 			return redirect("app_general:home-page")
 	else:
 		form = ContactForm()
