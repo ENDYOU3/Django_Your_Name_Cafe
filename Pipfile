@@ -9,6 +9,7 @@ mysql-connector-python = "*"
 pillow = "*"
 mysqlclient = "*"
 pandas = "*"
+python-dotenv = "*"
 
 [dev-packages]
 bpython = "*"

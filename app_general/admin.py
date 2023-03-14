@@ -32,3 +32,4 @@ class CustomerAdmin(admin.ModelAdmin):
     search_fields = ["first_name", "last_name"]
 
 admin.site.register(Customer, CustomerAdmin)
+

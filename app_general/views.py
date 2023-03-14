@@ -85,61 +85,63 @@ def show_order(request):
 	username = request.user.username
 	user = User.objects.get(username=username)
 	all_customer = Customer.objects.filter(user=user)
-	count_item = len(request.session["product_list"])
-	# Add shipping cost to total price
-	shipping_cost = 40
-	request.session["shipping_cost"] = shipping_cost
-	if not request.session["add_shipping_cost"]:
-		request.session["total_price"] += request.session["shipping_cost"]
-		request.session["add_shipping_cost"] = True
-	# Save data to database
-	if request.method == "POST":
-		try:
-			request.session["customer"]
-			shipping = []
-			form = OrderDetailForm(request.POST)
-			if form.is_valid():
-				shipping.append({
-					"note": form.cleaned_data["note"],
-					"payment_method": form.cleaned_data["payment_method"]
-				})
-				# Add new order to database
-				product_list = request.session["product_list"]
-				for i in range(len(product_list)):
-					new_order = Order()
-					slug = product_list[i].get("slug")
-					product = get_object_or_404(Product, slug=slug)
-					new_order.product = product
-					new_order.quantity = product_list[i].get("qty")
-					new_order.total_price = product_list[i].get("total_price")
-					new_order.shipping = Shipping.objects.all().last()
-					new_order.save()
-					# Update quantity of product in stock
-					product.quantity -= new_order.quantity
-					product.save()
-				# Add new shipping to database
-				new_shipping = Shipping()
-				customer_id = request.session["customer_id"]
-				new_shipping.customer = Customer.objects.get(id=customer_id)
-				new_shipping.payment_method = shipping[0].get("payment_method")
-				new_shipping.note = shipping[0].get("note")
-				new_shipping.save()
-			# Reset value in session
-			request.session["total_qty"] = []
-			request.session["product_list"] = []
-			request.session["total_price"] = []
-			return HttpResponseRedirect(reverse('app_general:thank_you-page'))
-		except:
-			return HttpResponseRedirect(reverse('app_general:order-page'))
-	else:
-		form = OrderDetailForm()
-	context = {
-		"count_item": count_item,
-		"all_customer": all_customer,
-		"form": form
-	}
-	return render(request, "app_general/order.html", context)
-
+	try:
+		count_item = len(request.session["product_list"])
+		# Add shipping cost to total price
+		shipping_cost = 40
+		request.session["shipping_cost"] = shipping_cost
+		if not request.session["add_shipping_cost"]:
+			request.session["total_price"] += request.session["shipping_cost"]
+			request.session["add_shipping_cost"] = True
+		# Save data to database
+		if request.method == "POST":
+			try:
+				request.session["customer"]
+				shipping = []
+				form = OrderDetailForm(request.POST)
+				if form.is_valid():
+					shipping.append({
+						"note": form.cleaned_data["note"],
+						"payment_method": form.cleaned_data["payment_method"]
+					})
+					# Add new order to database
+					product_list = request.session["product_list"]
+					for i in range(len(product_list)):
+						new_order = Order()
+						slug = product_list[i].get("slug")
+						product = get_object_or_404(Product, slug=slug)
+						new_order.product = product
+						new_order.quantity = product_list[i].get("qty")
+						new_order.total_price = product_list[i].get("total_price")
+						new_order.shipping = Shipping.objects.all().last()
+						new_order.save()
+						# Update quantity of product in stock
+						product.quantity -= new_order.quantity
+						product.save()
+					# Add new shipping to database
+					new_shipping = Shipping()
+					customer_id = request.session["customer_id"]
+					new_shipping.customer = Customer.objects.get(id=customer_id)
+					new_shipping.payment_method = shipping[0].get("payment_method")
+					new_shipping.note = shipping[0].get("note")
+					new_shipping.save()
+				# Reset value in session
+				request.session["total_qty"] = []
+				request.session["product_list"] = []
+				request.session["total_price"] = []
+				return HttpResponseRedirect(reverse('app_general:thank_you-page'))
+			except:
+				return HttpResponseRedirect(reverse('app_general:order-page'))
+		else:
+			form = OrderDetailForm()
+		context = {
+			"count_item": count_item,
+			"all_customer": all_customer,
+			"form": form
+		}
+		return render(request, "app_general/order.html", context)
+	except:
+		return HttpResponseRedirect(reverse('app_general:show_item_in_cart-page'))
 
 @login_required
 def add_customer(request):
@@ -207,7 +209,7 @@ def history_shopping(request):
 	all_customer = Customer.objects.filter(user=user)
 	try:
 		customer_id = request.session["customer_id"]
-		order_list = Order.objects.filter(shipping_id__customer_id=customer_id).values_list("id", "shipping_id__shipping_date", "product_id__title", "quantity", "total_price")
+		order_list = Order.objects.filter(shipping_id__customer_id=customer_id, shipping_id__status="Approve").values_list("id", "shipping_id__shipping_date", "product_id__title", "quantity", "total_price")
 		order_qty = len(order_list)
 		status = True
 		context = {"status": status, "all_customer": all_customer, "order_list": order_list, "order_qty": order_qty}
