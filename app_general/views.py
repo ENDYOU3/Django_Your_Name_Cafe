@@ -143,6 +143,7 @@ def show_order(request):
 	except:
 		return HttpResponseRedirect(reverse('app_general:show_item_in_cart-page'))
 
+
 @login_required
 def add_customer(request):
 	if request.method == "POST":
