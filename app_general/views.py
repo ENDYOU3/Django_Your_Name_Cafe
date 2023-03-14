@@ -131,6 +131,7 @@ def show_order(request):
 				request.session["total_price"] = []
 				return HttpResponseRedirect(reverse('app_general:thank_you-page'))
 			except:
+				messages.error(request, "An error occurred when we tried to set your shipping address. Please try again.")
 				return HttpResponseRedirect(reverse('app_general:order-page'))
 		else:
 			form = OrderDetailForm()

@@ -29,6 +29,13 @@
         {% if count_item == 0 %}
         <h3 class="text-center">Your haven't placed any order yet.</h3>
         {% else %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger text-center" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
         <!-- Customer Address -->
         <div class="text-white" align="left">
             <h3 class="text-muted">Delivery Address</h3>

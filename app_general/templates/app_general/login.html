@@ -20,7 +20,7 @@
 <div class="px-3">
     <div class="container mt-auto p-5 bg-black rounded-3">
         <h2 class="text-white" align="left"><b>Sign In</b></h2><br>
-        <form action="{% url 'login' %}" method="POST">
+        <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="form-floating mb-3 mt-3 text-muted">
                 <input type="text" class="form-control" id="username" placeholder="username" name="username">
