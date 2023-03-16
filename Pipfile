@@ -6,10 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 mysql-connector-python = "*"
-pillow = "*"
-mysqlclient = "*"
-pandas = "*"
 python-dotenv = "*"
+pillow = "*"
 
 [dev-packages]
 bpython = "*"

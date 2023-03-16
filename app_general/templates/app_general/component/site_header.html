@@ -2,9 +2,15 @@
     <div class="navbar navbar-dark shadow-sm p-md-2 mb-2 bg-black">
         <div class="container text-white flex-md-row bg-black">
             <div class="flex-md-col-3 bg-black">
+                {% if user.is_staff %}
+                <a href="{% url 'app_general:about_user-page' %}" class="navbar-brand d-flex align-items-center">
+                    <strong style="color:aqua">{{ user.username }}</strong>
+                </a>
+                {% else %}
                 <a href="{% url 'app_general:about_user-page' %}" class="navbar-brand d-flex align-items-center">
                     <strong style="color:#d6ce93">{{ user.username }}</strong>
                 </a>
+                {% endif %}
             </div>
             <!-- Menu bar -->
             <div class="row bg-black">
@@ -76,6 +82,13 @@
                     class="bi bi-person-fill" viewBox="0 0 16 16">
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                 </svg>&nbsp My Account
+            </a>
+            <a class="nav-link fw-bold py-1 px-0 text-white" href="{% url 'app_general:add_customer-page' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-add-fill" viewBox="0 0 16 16">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 1 1-1 0v-1h-1a.5.5 0 1 1 0-1h1v-1a.5.5 0 0 1 1 0Z"/>
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                    <path d="m8 3.293 4.712 4.712A4.5 4.5 0 0 0 8.758 15H3.5A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+                </svg>&nbsp Add Address
             </a>
             <a class="nav-link fw-bold py-1 px-0 text-white" href="{% url 'app_general:contact-page' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"

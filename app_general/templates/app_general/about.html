@@ -8,14 +8,23 @@
 <div class="container mt-3" align="center">
     <div class="card bg-black text-white" style="width:350px">
         <div class="card-body" align="left">
+            {% if user.is_staff %}
             <p>
-            <h4>{{ user.username }}</h4>
+                <h4 style="color: aqua;">superuser | {{ user.username }}</h4>
             </p>
+            {% else %}
+            <p>
+                <h4 style="color:#d6ce93">user | {{ user.username }}</h4>
+            </p>
+            {% endif %}
             <p>
                 <b>Name : </b>{{ user.first_name }} {{ user.last_name }}<br>
             </p>
             <p>
                 <b>Email : </b>{{ user.email }}<br>
+            </p>
+            <p>
+                <b>Date Create : </b>{{ user.date_joined }}<br>
             </p>
             <a class="btn btn-dark nav-link fw-bold py-1 px-0 text-white"
                 href="{% url 'app_general:history_shop-page' %}">View Purchase History</a>
