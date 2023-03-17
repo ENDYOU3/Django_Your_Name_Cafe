@@ -51,13 +51,6 @@ This is a web-app created using Python and Django. This allows the user to login
 **Change setting in .env**
    -  Change settings according to your device.
 
-**Run Server**
-```bash
-   python manage.py runserver
-```
-
-**In your web browser enter the address : http://localhost:8000 or http://127.0.0.1:8000/**
-
 **If you do something in models.py (database)**
    -  applying and unapplying migrations
 ```bash
@@ -67,6 +60,13 @@ This is a web-app created using Python and Django. This allows the user to login
 ```bash
    python manage.py migrate
 ```
+
+**Run Server**
+```bash
+   python manage.py runserver
+```
+
+**In your web browser enter the address : http://localhost:8000 or http://127.0.0.1:8000/**
 
 ## Screenshots :
 ![login](https://user-images.githubusercontent.com/103243756/225934878-2770a9b2-6120-421b-a860-6b5f617dcb9b.JPG)
@@ -81,9 +81,9 @@ This is a web-app created using Python and Django. This allows the user to login
 ![contact](https://user-images.githubusercontent.com/103243756/225935159-b348a37e-637a-4e64-8217-fc7a5140724d.JPG)
 
 ## Credit Picture :
-   https://www.olivemagazine.com/recipes/collection/best-ever-coffee-recipes/
-   https://guide.michelin.com/us/en/article/features/7-varieties-of-green-tea-explained
-   https://freshtea.com/black-tea/
-   https://www.cookwithprincess.com/recipe/red-velvet-cake/
-   https://www.freepik.com/
-   https://www.6sqft.com/dating-app-bumble-will-open-a-permanent-cafe-and-wine-bar-in-soho-this-fall/
+   -  https://www.olivemagazine.com/recipes/collection/best-ever-coffee-recipes/
+   -  https://guide.michelin.com/us/en/article/features/7-varieties-of-green-tea-explained
+   -  https://freshtea.com/black-tea/
+   -  https://www.cookwithprincess.com/recipe/red-velvet-cake/
+   -  https://www.freepik.com/
+   -  https://www.6sqft.com/dating-app-bumble-will-open-a-permanent-cafe-and-wine-bar-in-soho-this-fall/
