@@ -26,13 +26,12 @@ This is a web-app created using Python and Django. This allows the user to login
 **Database :** `MySQL`
 
 ## Installation : 
-### Run with Integrated development environment (IDE)
-**Create environment and install package :** 
+### Create environment and install package :
    -  Open file location on `terminal` or `cmd`
 ```bash
    cd "location path"
 ```
-   -  install `pipenv`
+   -  Install `pipenv`
 ```bash
    pip install pipenv
 ```
@@ -45,25 +44,25 @@ This is a web-app created using Python and Django. This allows the user to login
    pipenv install
 ```
 
-**Create super user**
+### Create super user :
 ```bash
    python manage.py createsuperuser
 ```
 
-**Change setting in .env**
+### Change setting in `.env` :
    -  Change settings according to your device.
 
-**If you do something in models.py (database)**
-   -  applying and unapplying migrations
+### If you do something in models.py (database) :
+   -  Applying and unapplying migrations
 ```bash
    python manage.py makemigrations
 ```
-   -  creating new migrations based on the changes you have made to your models
+   -  Creating new migrations based on the changes you have made to your models
 ```bash
    python manage.py migrate
 ```
 
-**Run Server**
+### Run Server :
 ```bash
    python manage.py runserver
 ```
