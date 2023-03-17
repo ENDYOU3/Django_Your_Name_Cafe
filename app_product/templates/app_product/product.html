@@ -58,8 +58,7 @@
     <p>
         {% if thisProduct.price is not None %}
         {% if thisProduct.special_price is not None %}
-        <b>Price : </b><del style="color:rgb(255, 90, 90)">{{ thisProduct.price | floatformat:'g' }} Bath</del>&nbsp{{
-        thisProduct.special_price | floatformat:'g' }} Bath
+        <b>Price : </b><del style="color:rgb(255, 90, 90)">{{ thisProduct.price | floatformat:'g' }} Bath</del>&nbsp{{thisProduct.special_price | floatformat:'g' }} Bath
         {% else %}
         <b>Price : </b>{{ thisProduct.price | floatformat:'g' }} Bath
         {% endif %}
