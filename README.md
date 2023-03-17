@@ -23,6 +23,8 @@ This is a web-app created using Python and Django. This allows the user to login
 
 **Libraries :** `Django`,  `mysql-connector-python`,  `python-dotenv`, `pillow`
 
+**Database :** `MySQL`
+
 ## Installation : 
 ### Run with Integrated development environment (IDE)
 **Create environment and install package :** 
