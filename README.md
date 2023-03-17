@@ -1,6 +1,6 @@
 # Django_Your_Name_Cafe
 This is a web-app created using Python and Django. This allows the user to login, add items to their cart, delete items from their cart, view their shopping history, and so on. 
-# Django Web App "Your Name Café" 
+
 ## Function :
    -  Save product into the database (admin-page)
    -  Show all products
@@ -72,6 +72,7 @@ This is a web-app created using Python and Django. This allows the user to login
 ![login](https://user-images.githubusercontent.com/103243756/225934878-2770a9b2-6120-421b-a860-6b5f617dcb9b.JPG)
 ![register](https://user-images.githubusercontent.com/103243756/225934892-813d050f-a9c2-4ee2-94e4-d12de42b880b.JPG)
 ![all_product](https://user-images.githubusercontent.com/103243756/225934936-88e354ab-0ac0-4112-aff3-45db5630ac7c.JPG)
+![product_detail](https://user-images.githubusercontent.com/103243756/225937096-2a384f31-0b63-43b1-adc5-025ae8caa14b.JPG)
 ![shopping_cart](https://user-images.githubusercontent.com/103243756/225935046-8f80d9aa-6fc1-41a6-bd9f-7123e45801b7.JPG)
 ![order_list](https://user-images.githubusercontent.com/103243756/225935080-15617587-89f9-4533-9a32-ee58c5915bd3.JPG)
 ![add_address](https://user-images.githubusercontent.com/103243756/225935126-c65beb6e-2b88-4eb1-a8a3-360fef996b36.JPG)
