@@ -80,16 +80,10 @@ This is a web-app created using Python and Django. This allows the user to login
 ![order_history](https://user-images.githubusercontent.com/103243756/225935142-64e606fa-b0dc-4f0c-97b4-43bbe8c29758.JPG)
 ![contact](https://user-images.githubusercontent.com/103243756/225935159-b348a37e-637a-4e64-8217-fc7a5140724d.JPG)
 
-## Credit :
-   - Picture of coffee
+## Credit Picture :
    https://www.olivemagazine.com/recipes/collection/best-ever-coffee-recipes/
-   - Picture of tea
    https://guide.michelin.com/us/en/article/features/7-varieties-of-green-tea-explained
    https://freshtea.com/black-tea/
-   https://www.freepik.com/premium-photo/thai-milk-tea-with-bubble-brown-sugar_18514947.htm
-   - Picture of cake
    https://www.cookwithprincess.com/recipe/red-velvet-cake/
-   - Picture of home-page
-   https://www.freepik.com/premium-photo/scatteing-coffee-beand-coffee-cup-with-coffee-beans-bamboo-tray_5810228.htm#query=coffee&position=26&from_view=search&track=sph
-   https://www.freepik.com/free-photo/porcelain-gaiwan-three-cups-chinese-tea-golden-frog-tea-desk_2584175.htm#query=tea&position=45&from_view=search&track=sph
-   https://www.freepik.com/free-photo/arrangement-with-delicious-traditional-thai-tea_15035746.htm#query=milk%20tea&position=7&from_view=search&track=sph
+   https://www.freepik.com/
+   https://www.6sqft.com/dating-app-bumble-will-open-a-permanent-cafe-and-wine-bar-in-soho-this-fall/
