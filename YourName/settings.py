@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_general.apps.AppGeneralConfig',
-    'app_product.apps.AppProductConfig'
+    'app_product.apps.AppProductConfig',
+    'app_user.apps.AppUserConfig'
 ]
 
 MIDDLEWARE = [
@@ -135,7 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login Path Setting
 LOGIN_URL = 'login'
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'app_user:login'
 LOGIN_REDIRECT_URL = 'app_general:home-page'
 
 # Image Path Setting

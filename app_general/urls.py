@@ -4,7 +4,6 @@ from . import views
 urlpatterns = [
     path("", views.Home, name="home-page"),
     path("about_user/", views.AboutUser, name="about_user-page"),
-    path("register_user/", views.RegisterUser, name="register_user-page"),
     path("contact/", views.ContactMessage, name="contact-page"),
     path("shopping_cart/", views.show_item_in_cart, name="show_item_in_cart-page"),
     re_path(r"^add_to_cart/(?P<slug>[\w-]+)/$", views.add_to_cart, name="add_to_cart-page"),

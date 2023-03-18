@@ -1,9 +1,8 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from app_general.forms import *
-from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from app_product.models import Product
 from django.contrib.auth.models import User
@@ -246,25 +245,8 @@ def ContactMessage(request):
 			new_contact.description = form.cleaned_data["description"]
 			new_contact.save()
 			messages.success(request, f"{username}, Thanks for your feedback.")
-			return redirect("app_general:home-page")
+			return HttpResponseRedirect("app_general:home-page")
 	else:
 		form = ContactForm()
 	context = {"form": form}
 	return render(request, "app_general/contact.html", context)
-
-
-def RegisterUser(request):
-	if request.method == "POST":
-		form = RegisterUserForm(request.POST)
-		if form.is_valid():
-			form.save()
-			data_username = form.cleaned_data["username"]
-			data_password = form.cleaned_data["password1"]
-			user = authenticate(username=data_username, password=data_password)
-			login(request, user)
-			messages.success(request, ("Registration Successful"))
-			return redirect("app_general:home-page")
-	else:
-		form = RegisterUserForm()
-	context = {"form": form}
-	return render(request, "app_general/register.html", context)
