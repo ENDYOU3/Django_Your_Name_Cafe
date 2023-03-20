@@ -25,6 +25,7 @@ def RegisterUser(request):
 	context = {"form": form}
 	return render(request, "app_user/register.html", context)
 
+
 @login_required
 def Profile(request):
 	if request.method == "POST":
@@ -36,8 +37,3 @@ def Profile(request):
 		form = UserForm(instance=request.user)
 	context = {"form": form}
 	return render(request, "app_user/profile.html", context)
-
-
-@login_required
-def AboutUser(request):
-	return render(request, "app_user/about.html")
