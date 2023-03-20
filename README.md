@@ -78,7 +78,8 @@ This is a web-app created using Python and Django. This allows the user to login
 ![order_list](https://user-images.githubusercontent.com/103243756/225935080-15617587-89f9-4533-9a32-ee58c5915bd3.JPG)
 ![add_address](https://user-images.githubusercontent.com/103243756/225935126-c65beb6e-2b88-4eb1-a8a3-360fef996b36.JPG)
 ![order_list2](https://user-images.githubusercontent.com/103243756/225935086-a91318e1-083f-4925-befe-5dccda0327b7.JPG)
-![order_history](https://user-images.githubusercontent.com/103243756/225935142-64e606fa-b0dc-4f0c-97b4-43bbe8c29758.JPG)
+![infomation](https://user-images.githubusercontent.com/103243756/226293921-23944ff6-67fa-466f-bfc0-34f4f5b05347.JPG)
+![order_history](https://user-images.githubusercontent.com/103243756/226293933-1f86648a-95c7-46b9-95e3-b1b0ba238933.JPG)
 ![contact](https://user-images.githubusercontent.com/103243756/225935159-b348a37e-637a-4e64-8217-fc7a5140724d.JPG)
 
 ## Credit Picture :
