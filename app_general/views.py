@@ -15,11 +15,6 @@ def Home(request):
 
 
 @login_required
-def AboutUser(request):
-	return render(request, "app_general/about.html")
-
-
-@login_required
 def show_item_in_cart(request):
 	product_list = request.session.get("product_list") or []
 	total_qty = 0
@@ -211,10 +206,11 @@ def history_shopping(request):
 	all_customer = Customer.objects.filter(user=user)
 	try:
 		customer_id = request.session["customer_id"]
+		customer = Customer.objects.filter(id=customer_id)
 		order_list = Order.objects.filter(shipping_id__customer_id=customer_id, shipping_id__status="Approve").values_list("id", "shipping_id__shipping_date", "product_id__title", "quantity", "total_price")
 		order_qty = len(order_list)
 		status = True
-		context = {"status": status, "all_customer": all_customer, "order_list": order_list, "order_qty": order_qty}
+		context = {"status": status, "all_customer": all_customer, "customer": customer, "order_list": order_list, "order_qty": order_qty}
 		return render(request, "app_general/history_shopping.html", context)
 	except:
 		status = False

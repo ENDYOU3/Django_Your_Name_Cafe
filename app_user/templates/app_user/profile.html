@@ -1,0 +1,50 @@
+{% extends 'app_general/base.html' %}
+
+{% block title %}
+<title>About Me | {{user.username}}</title>
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'app_user:profile-page' %}" method="POST">
+{% csrf_token %}
+<div class="container mt-3" align="center">
+    <div class="card bg-black text-white" style="width:350px">
+        <div class="card-body" align="left">
+            {% if user.is_staff %}
+            <div class="row">
+                <div class="col-9">
+                    <h4 style="color: aqua;">superuser | {{ user.username }}</h4>
+                </div> 
+                <div class="col-3" >
+                    <button class="btn btn-primary" type="submit">SAVE</button>
+                </div>
+            </div>
+            {% else %}
+            <div class="row">
+                <div class="col-9">
+                    <h4 style="color:#d6ce93">user | {{ user.username }}</h4>
+                </div> 
+                <div class="col-3" >
+                    <button class="btn btn-primary" type="submit">SAVE</button>
+                </div>
+            </div>
+            {% endif %}
+            <p>
+                <div class="container text-white" align="center">
+                    {% if form.errors %}
+                    <div class="alert alert-warning">
+                        <strong>Warning!</strong> This alert box could indicate a warning that might need attention.
+                    </div>
+                    {% endif %}
+                </div>
+                <form class="text-white" action="{% url 'app_user:register_user-page' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </form>
+            </p>
+            <a class="btn btn-dark nav-link fw-bold py-1 px-0 text-white"
+                href="{% url 'app_general:history_shop-page' %}">View Purchase History</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

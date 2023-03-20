@@ -17,7 +17,7 @@
                 {% for customer in all_customer %}
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                     <a class="btn btn-dark" href="{% url 'app_general:select_history-page' customer_id=customer.id %}">
-                        {{ customer.first_name }} {{ customer.last_name }}
+                        {{ customer.first_name }} | {{ customer.city }}
                     </a>
                 </div>
                 {% endfor %}
@@ -41,6 +41,17 @@
             </div>
             {% else %}
             <div class="card-body">
+                <div class="container text">
+                    {% for info in customer %}
+                    {{ info.first_name }} {{ info.last_name }} | {{ info.phone }}<br>
+                    <div class="text-muted">
+                        {{ info.address }}<br>
+                        {{ info.country }}, {{ info.city }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card-footer">
                 <div class="text">
                     <table class="table">
                         <thead>
