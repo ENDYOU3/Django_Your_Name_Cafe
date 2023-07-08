@@ -5,14 +5,14 @@ from app_product.forms import *
 # Create your views here.
 
 
-def All_Products(request):
+def show_all_products(request):
     all_products = Product.objects.order_by("-is_premium")
     product_quantity = len(all_products)
     context = {"products": all_products, "product_quantity": product_quantity}
     return render(request, "app_product/products.html", context)
 
 
-def One_Product(request, slug):
+def show_product(request, slug):
     thisProduct = None
     try:
         thisProduct = Product.objects.get(slug=slug)
@@ -24,28 +24,28 @@ def One_Product(request, slug):
 
 # Note type >> 1=coffee, 2=tea, 3=milk, 4=cake
 
-def All_Coffee(request):
+def show_only_coffee(request):
     all_products = Product.objects.filter(type=1).order_by("-is_premium")
     product_quantity = len(all_products)
     context = {"products": all_products, "product_quantity": product_quantity}
     return render(request, "app_product/coffee.html", context)
 
 
-def All_Tea(request):
+def show_only_tea(request):
     all_products = Product.objects.filter(type=2).order_by("-is_premium")
     product_quantity = len(all_products)
     context = {"products": all_products, "product_quantity": product_quantity}
     return render(request, "app_product/tea.html", context)
 
 
-def All_Milk(request):
+def show_only_milk(request):
     all_products = Product.objects.filter(type=3).order_by("-is_premium")
     product_quantity = len(all_products)
     context = {"products": all_products, "product_quantity": product_quantity}
     return render(request, "app_product/milk.html", context)
 
 
-def All_Cake(request):
+def show_only_cake(request):
     all_products = Product.objects.filter(type=4).order_by("-is_premium")
     product_quantity = len(all_products)
     context = {"products": all_products, "product_quantity": product_quantity}

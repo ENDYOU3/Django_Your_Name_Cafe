@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 
-def Home(request):
+def show_home_page(request):
 	return render(request, "app_general/home.html")
 
 
@@ -224,12 +224,12 @@ def select_history(request, customer_id):
 
 
 @login_required
-def Thankyou(request):
+def show_thank_you_page(request):
 	return render(request, "app_general/thank_for_shopping.html")
 
 
 @login_required
-def ContactMessage(request):
+def contact_message(request):
 	if request.method == "POST":
 		form = ContactForm(request.POST)
 		if form.is_valid():
