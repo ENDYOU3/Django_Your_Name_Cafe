@@ -80,7 +80,6 @@ def show_order(request):
 	user = User.objects.get(username=username)
 	all_customer = Customer.objects.filter(user=user)
 	shipping_method = []
-	print(type(len(all_customer)))
 	# Add shipping cost to the total price
 	shipping_cost = 40
 	request.session["shipping_cost"] = shipping_cost
@@ -204,14 +203,25 @@ def history_shopping(request):
 	try:
 		customer_id = request.session["customer_id"]
 		customer = Customer.objects.filter(id=customer_id)
-		order_list = Order.objects.filter(shipping_id__customer_id=customer_id, shipping_id__status="Approve").values_list("id", "shipping_id__shipping_date", "product_id__title", "quantity", "total_price")
-		order_qty = len(order_list)
+		# join table
+		order_list = Order.objects.filter(shipping_id__customer_id=customer_id, shipping_id__status="Approve").values_list("shipping_id", "shipping_id__shipping_date", "product_id__title", "quantity", "total_price")
 		status = True
-		context = {"status": status, "all_customer": all_customer, "customer": customer, "order_list": order_list, "order_qty": order_qty}
+		context = {
+	     	"all_customer": all_customer,
+			"count_customer": len(all_customer), 
+			"customer": customer,
+			"order_list": order_list,
+			"order_qty": len(order_list),
+			"status": status
+			}
 		return render(request, "app_general/history_shopping.html", context)
 	except:
 		status = False
-		context = {"status": status, "all_customer": all_customer}
+		context = {
+			"count_customer": len(all_customer),  
+			"all_customer": all_customer,
+			"status": status
+			}
 		return render(request, "app_general/history_shopping.html", context)
 
 
