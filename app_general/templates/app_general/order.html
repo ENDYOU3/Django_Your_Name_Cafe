@@ -43,11 +43,13 @@
             <!-- Add Customer Function -->
             <a class="btn btn-secondary text-black fw-bold rounded-pill"
                 href="{% url 'app_general:add_customer-page' %}">+ Add Address</a> &nbsp;
-
+            
             <!-- Select Customer Function-->
+            {% if count_customer != 0 %}
             <button class="btn btn-secondary text-black fw-bold rounded-pill" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Select Your
-                Address</button>
+                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Select Your Address
+            </button>
+            {% endif %}
 
             <!-- Show all customer address -->
             <p>
